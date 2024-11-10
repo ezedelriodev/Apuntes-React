@@ -9,7 +9,7 @@
 ## Índice
 
 - [Índice](#índice)
-    - [¿Qué es React?](#qué-es-react)
+    - [**¿Qué es React?**](#qué-es-react)
 
 
 
@@ -90,3 +90,5 @@ function Contador() {
 **[⬆ Volver a índice](#índice)**
 
 ---
+
+**INCORPORAR: PIENSA EN REACT**
