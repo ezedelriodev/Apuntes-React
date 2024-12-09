@@ -13,8 +13,11 @@
   - [**Pensar en React** https://es.react.dev/learn/thinking-in-react](#pensar-en-react-httpsesreactdevlearnthinking-in-react)
   - [**Renderizado y confirmación**](#renderizado-y-confirmación)
   - [**El estado: la memoria de un componente**](#el-estado-la-memoria-de-un-componente)
+  - [**¿Qué es y para qué sirve la prop children en React?**](#qué-es-y-para-qué-sirve-la-prop-children-en-react)
   - [**Hooks**](#hooks)
   - [**useRef**](#useref)
+    - [Uso de forwardRef](#uso-de-forwardref)
+  
   
 
 
@@ -315,6 +318,31 @@ A diferencia de las props, **el estado es totalmente privado para el componente 
 **[⬆ Volver a índice](#índice)**
 
 ---
+## **¿Qué es y para qué sirve la prop children en React?**
+La prop children es una prop especial que se pasa a los componentes. Es un objeto que contiene los elementos que envuelve un componente.
+
+Por ejemplo, si tenemos un componente Card que muestra una tarjeta con un título y un contenido, podemos usar la prop children para mostrar el contenido:
+```jsx
+const Card = ({title, children}) => {
+  return (
+    <div className="card">
+      <h2>{title}</h2>
+      <div>{children}</div>
+    </div>
+  )
+}
+```
+Y luego podemos llamar al componente de la siguiente forma:
+
+```jsx
+<Card title="Título de la tarjeta">
+  <p>Contenido de la tarjeta</p>
+  //O cualquier otro componente que queramos enviar
+</Card>
+```
+**[⬆ Volver a índice](#índice)**
+
+---
 
 ## **Hooks**
 
@@ -451,8 +479,45 @@ Después de que React cree el nodo DOM y lo ponga en la pantalla, React establec
 ```
 React establecerá la propiedad ``current`` a ``null`` cuando el nodo sea eliminado de la pantalla.
 
+### Uso de forwardRef
 **Exponer una ref a tu propio componente**
-Me he quedado aquí. Es el ejercicio 4 para ver el uso de ``forwardRef``
+
+A veces, es posible que quieras dejar que el componente padre manipule el DOM dentro de tu componente. Por ejemplo, tal vez estás escribiendo un componente MyInput, pero quieres que el padre sea capaz de enfocar la entrada (a la que el padre no tiene acceso). Puedes usar una combinación de ``useRef`` para mantener la entrada y ``forwardRef`` para exponerlo al componente padre. 
+
+El reenvío de referencia o *Forward Refs* es una técnica que nos permite acceder a una referencia de un componente hijo desde un componente padre.
+
+```jsx
+// Button.jsx
+import { forwardRef } from 'react'
+
+export const Button = forwardRef((props, ref) => (
+  <button ref={ref} className="rounded border border-sky-500 bg-white">
+    {props.children}
+  </button>
+));
+
+// Parent.jsx
+import { Button } from './Button'
+import { useRef } from 'react'
+
+const Parent = () => {
+  const ref = useRef()
+
+  useEffect(() => {
+    // Desde el padre podemos hacer focus
+    // al botón que tenemos en el hijo
+    ref.current?.focus?.()
+  }, [ref.current])
+
+  return (
+    <Button ref={ref}>My button</Button>
+  )
+}
+```
+
+En este ejemplo, recuperamos la referencia del botón (elemento HTML `<button>`) y la recupera el componente padre (`Parent`), para poder hacer focus en él gracias al uso de `forwardRef` en el componente hijo (`Button`).
+
+Para la gran mayoría de componentes esto no es necesario pero puede ser útil para sistemas de diseño o componentes de terceros reutilizables.
 
 
 
