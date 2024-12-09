@@ -14,6 +14,7 @@
   - [**Renderizado y confirmación**](#renderizado-y-confirmación)
   - [**El estado: la memoria de un componente**](#el-estado-la-memoria-de-un-componente)
   - [**¿Qué es y para qué sirve la prop children en React?**](#qué-es-y-para-qué-sirve-la-prop-children-en-react)
+  - [**Exports por defecto vs. con nombre**](#exports-por-defecto-vs-con-nombre)
   - [**Hooks**](#hooks)
   - [**useRef**](#useref)
     - [Uso de forwardRef](#uso-de-forwardref)
@@ -343,6 +344,20 @@ Y luego podemos llamar al componente de la siguiente forma:
 **[⬆ Volver a índice](#índice)**
 
 ---
+## **Exports por defecto vs. con nombre**
+- Hay dos formas fundamentales de exportar valores con JavaScript: ``exports por defecto`` y ``exports con nombre``
+- Puedes usar uno o ambos en el mismo archivo. Un archivo no puede tener más de un export por defecto, pero puede tener tantos exports con nombre como desees.
+  <img height="500" src="https://es.react.dev/images/docs/illustrations/i_import-export.svg">
+
+
+| Sintaxis     | Sentencia export| Sentencia import |
+|--------------|----------------- |------------------|
+|**Por defecto**| export default function Button() {}   | import Button from './Button.js';|
+|**Con nombre**| export function Button() {}    | import { Button } from './Button.js';    |
+
+- Cuando escribes un **import por defecto** puedes poner ``cualquier nombre`` después de import.
+- Las personas a menudo utilizan exports por defecto si el archivo solo exporta un componente, y usan exports con nombre si exporta varios componentes y valores.
+
 
 ## **Hooks**
 
